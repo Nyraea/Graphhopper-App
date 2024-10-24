@@ -90,7 +90,15 @@ while True:
       hr = int(paths_data["paths"][0]["time"]/1000/60/60) 
       print("Distance Traveled: {0:.1f} miles / {1:.1f} km".format(miles, km))
       print("Trip Duration: {0:02d}:{1:02d}:{2:02d}".format(hr, min, sec)) 
-   print("=================================================")
+      print("=================================================")
+      for each in range(len(paths_data["paths"][0]["instructions"])):
+         path = paths_data["paths"][0]["instructions"][each]["text"]
+         distance = paths_data["paths"][0]["instructions"][each]["distance"]
+         print("{0} ( {1:.1f} km / {2:.1f} miles )".format(path, distance/1000,distance/1000/1.61))
+         print("=============================================")
+   else:
+      print("Error message: " + paths_data["message"])
+      print("*************************************************")
  else:
    print(orig[0])
    print(dest[0])
