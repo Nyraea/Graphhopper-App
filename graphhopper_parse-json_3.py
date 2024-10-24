@@ -3,10 +3,6 @@ import urllib.parse
 #API Endpoints
 route_url = "https://graphhopper.com/api/1/route?"
 
-#Locations
-loc1 = "Washington, D.C."
-loc2 = "Baltimore, Maryland"
-
 #API Key
 key = "e9a338f2-9253-4dd4-9344-7b46fc1bd2ea"
 
@@ -49,14 +45,22 @@ def geocoding (location, key):
             new_loc = name
          
          print("Geocoding API URL for " + new_loc + " (Location Type: " + value + ")\n" + url) 
-         
+
       else:
          lat="null"
          lng="null"
 
       return json_status,lat,lng
 
-orig = geocoding(loc1, key)
-print(orig)
-dest = geocoding(loc2, key)
-print(dest) 
+#User Input for Locations
+while True:
+ loc1 = input("Starting Location: ")
+ if loc1 == "quit" or loc1 == "q":
+   break
+ orig = geocoding(loc1, key)
+ print(orig)
+ loc2 = input("Destination: ")
+ if loc2 == "quit" or loc2 == "q":
+   break
+ dest = geocoding(loc2, key)
+ print(dest)
