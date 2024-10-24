@@ -8,6 +8,9 @@ key = "e9a338f2-9253-4dd4-9344-7b46fc1bd2ea"
 
 #Geocoding Function
 def geocoding (location, key):
+      while location == "":
+         location = input("Enter the location again: ")
+
       geocode_url = "https://graphhopper.com/api/1/geocode?"
       url = geocode_url + urllib.parse.urlencode({"q":location, "limit": "1",
       "key":key})
@@ -15,7 +18,7 @@ def geocoding (location, key):
       json_data = replydata.json()
       json_status = replydata.status_code
 
-      if json_status == 200:
+      if json_status == 200 and len(json_data["hits"]) !=0:
          json_data = requests.get(url).json()
          lat = json_data["hits"][0]["point"]["lat"]
          lng = json_data["hits"][0]["point"]["lng"]
@@ -49,8 +52,12 @@ def geocoding (location, key):
       else:
          lat="null"
          lng="null"
+         new_loc=location
+         if json_status != 200:
+            print("Geocode API status: " + str(json_status) + "\nError message: " +
+            json_data["message"]) 
 
-      return json_status,lat,lng
+      return json_status,lat,lng,new_loc
 
 #User Input for Locations
 while True:
