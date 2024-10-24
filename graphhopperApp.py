@@ -88,6 +88,7 @@ while True:
    break
  orig = geocoding(loc1, key)
 
+# Prompt users for N amount of destinations
  num_destinations = int(input("Enter the number of destinations: "))
  destinations = []
  for i in range(num_destinations):
@@ -124,9 +125,12 @@ while True:
 
 
  print("=================================================")
+
  #If origin and destination is present
  if orig[0] == 200 and all(dest[0] == 200 for dest in destinations):
    points = f"&point={orig[1]}%2C{orig[2]}"
+   
+   # Create file to save routing instructions to
    if saveToFile and fileName:
       createNewFile(fileName)
    for dest in destinations:
